@@ -1,3 +1,4 @@
+
 /**
  *
  * Test for ArrayStorage
@@ -12,10 +13,13 @@ public class MainArray {
         r2.uuid = "uuid2";
         Resume r3 = new Resume();
         r3.uuid = "uuid3";
+        Resume r4 = new Resume();
+        r4.uuid = "uuid1";
 
         arrayStorage.save(r1);
         arrayStorage.save(r2);
         arrayStorage.save(r3);
+        arrayStorage.save(r4);
 
         System.out.println("Get r1: " + arrayStorage.get(r1.uuid));
         System.out.println("Size: " + arrayStorage.size());
