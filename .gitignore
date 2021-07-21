@@ -3,6 +3,8 @@
 
 /lesson
 
+.gitattributes
+
 # Log file
 *.log
 
