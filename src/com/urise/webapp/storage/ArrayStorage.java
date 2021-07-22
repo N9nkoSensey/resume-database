@@ -1,8 +1,12 @@
+package com.urise.webapp.storage;
+
+import com.urise.webapp.model.Resume;
+
 public class ArrayStorage {
     private Resume[] storage = new Resume[10000];
     private int size = 0;
 
-    void clear() {
+    public void clear() {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
@@ -10,21 +14,22 @@ public class ArrayStorage {
     }
 
     public boolean update(Resume resume) {
-        if (resume != null && size < storage.length) {
+        if (resume != null) {
             for (int i = 0; i < size; i++) {
-                if (resume.uuid.equals(storage[i].uuid)) {
+                if (resume.getUuid().equals(storage[i].getUuid())) {
                     System.out.println("Duplicate resume");
                     return false;
                 }
             }
         } else {
-            System.out.println("Can't execute method \"save\". Either an empty summary or an array filled");
+            System.out.println("The resume is empty.");
+            return false;
         }
         return true;
     }
 
     public void save(Resume resume) {
-        if (update(resume)) {
+        if (update(resume) && (size < storage.length)) {
             storage[size] = resume;
             size++;
         }
@@ -33,7 +38,7 @@ public class ArrayStorage {
     public Resume get(String uuid) {
         if (uuid != null || !uuid.isEmpty()) {
             for (int i = 0; i < size; i++) {
-                if (uuid.equals(storage[i].uuid)) {
+                if (uuid.equals(storage[i].getUuid())) {
                     return storage[i];
                 }
             }
@@ -44,7 +49,7 @@ public class ArrayStorage {
     public void delete(String uuid) {
         if (uuid != null || !uuid.isEmpty()) {
             for (int i = 0; i < size; i++) {
-                if (storage[i] != null && storage[i].uuid.equals(uuid)) {
+                if (storage[i] != null && storage[i].getUuid().equals(uuid)) {
                     storage[i] = null;
                     size--;
                 }
