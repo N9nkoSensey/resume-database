@@ -1,6 +1,6 @@
 package com.urise.webapp.exception;
 
-public class StorageException extends Exception{
+public class StorageException extends RuntimeException{
     private final String uuid;
 
     public StorageException(String uuid) {
