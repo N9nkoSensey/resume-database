@@ -2,13 +2,9 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.nio.file.Path;
 import java.util.Arrays;
 
-public class ArrayStorage implements Storage{
-    private static final int STORAGE_LIMIT = 10000;
-    private Resume[] storage = new Resume[STORAGE_LIMIT];
-    private int size = 0;
+public class ArrayStorage extends AbstractArrayStorage{
 
     @Override
     public void clear() {
@@ -39,16 +35,6 @@ public class ArrayStorage implements Storage{
     }
 
     @Override
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index == -1) {
-            System.out.println("Resume " + uuid + " not exist.");
-            return null;
-        }
-        return storage[index];
-    }
-
-    @Override
     public void delete(String uuid) {
         int index = getIndex(uuid);
         if (index == -1){
@@ -65,19 +51,13 @@ public class ArrayStorage implements Storage{
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    @Override
-    public int size() {
-        return size;
-    }
 
-    private int getIndex(String uuid) {
-        if (uuid != null) {
+    protected int getIndex(String uuid) {
             for (int i = 0; i < size; i++) {
                 if (uuid.equals(storage[i].getUuid())) {
                     return i;
                 }
             }
-        }
         return -1;
     }
 }
