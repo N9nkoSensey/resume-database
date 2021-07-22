@@ -2,34 +2,33 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
+import java.util.Arrays;
+
 public class ArrayStorage {
     private Resume[] storage = new Resume[10000];
     private int size = 0;
 
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    public boolean update(Resume resume) {
-        if (resume != null) {
-            for (int i = 0; i < size; i++) {
-                if (resume.getUuid().equals(storage[i].getUuid())) {
-                    System.out.println("Duplicate resume");
-                    return false;
-                }
-            }
+    public void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if (index == -1) {
+            System.out.println("Resume " + resume.getUuid() + " not exist.");
         } else {
-            System.out.println("The resume is empty.");
-            return false;
+            storage[index] = resume;
+            size++;
         }
-        return true;
     }
 
     public void save(Resume resume) {
-        if (update(resume) && (size < storage.length)) {
+        if (getIndex(resume.getUuid()) != -1){
+            System.out.println("Resume " + resume.getUuid() + " already exist.");
+        }else if (size == storage.length){
+            System.out.println("Storage overflow");
+        } else{
             storage[size] = resume;
             size++;
         }
@@ -63,12 +62,21 @@ public class ArrayStorage {
     }
 
     public Resume[] getAll() {
-        Resume[] resumesWithoutNull = new Resume[size];
-        if (size > 0) System.arraycopy(storage, 0, resumesWithoutNull, 0, size);
-        return resumesWithoutNull;
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     public int size() {
         return size;
+    }
+
+    private int getIndex(String uuid) {
+        if (uuid != null) {
+            for (int i = 0; i < size; i++) {
+                if (uuid.equals(storage[i].getUuid())) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 }
