@@ -32,10 +32,10 @@ public abstract class AbstractArrayStorage implements Storage {
     @Override
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
-        if (index > 0) {
-            new ExistStorageException(resume.getUuid());
+        if (index >= 0) {
+            throw new ExistStorageException(resume.getUuid());
         } else if (size == STORAGE_LIMIT) {
-            new StorageException("Storage overflow", resume.getUuid());
+           throw  new StorageException("Storage overflow", resume.getUuid());
         } else {
             insertElement(resume, index);
             size++;
