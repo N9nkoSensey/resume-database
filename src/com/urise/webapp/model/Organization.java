@@ -13,7 +13,7 @@ import java.util.Objects;
 import static com.urise.webapp.util.DateUtil.of;
 import static com.urise.webapp.util.DateUtil.NOW;
 
-public class Organization implements Serializable{
+public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final Link homePage;
@@ -48,7 +48,7 @@ public class Organization implements Serializable{
         return "Organization(" + homePage + ", " + positions + ')';
     }
 
-    public static class Position implements Serializable{
+    public static class Position implements Serializable {
 
         private final LocalDate startDate;
         private final LocalDate endDate;
