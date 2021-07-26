@@ -110,7 +110,7 @@ public abstract class AbstractStorageTest {
         assertEquals(list, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
     }
 
-    private void assertGet(Resume resume){
+    private void assertGet(Resume resume) {
         assertEquals(resume, storage.get(resume.getUuid()));
     }
 

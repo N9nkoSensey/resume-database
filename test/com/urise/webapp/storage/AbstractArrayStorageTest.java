@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
+public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
     protected AbstractArrayStorageTest(Storage storage) {
         super(storage);
@@ -20,7 +20,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
             for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(new Resume("Name" + i));
             }
-        }catch (StorageException e){
+        } catch (StorageException e) {
             Assert.fail();
         }
         storage.save(new Resume("Overflow"));
