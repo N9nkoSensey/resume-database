@@ -1,12 +1,13 @@
 package com.urise.webapp.model;
 
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class Resume implements Comparable<Resume>{
    private final String uuid;
 
    private final String fullName;
+
+   private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
 
    public Resume(String fullName){
        this(UUID.randomUUID().toString(), fullName);
@@ -17,6 +18,10 @@ public class Resume implements Comparable<Resume>{
         Objects.requireNonNull(fullName, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
+    }
+
+    public String getContact(ContactType contactType){
+       return contacts.get(contactType);
     }
 
     public String getUuid() {
