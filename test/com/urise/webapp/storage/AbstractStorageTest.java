@@ -6,6 +6,7 @@ import com.urise.webapp.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public abstract class AbstractStorageTest {
     protected Storage storage;
+
+    protected static final File STORAGE_DIRECTORY = new File("C:\\GitHub\\resume-database\\storage");
 
     private static final String UUID_1 = "uuid1";
     private static final Resume RESUME_1;

@@ -1,8 +1,9 @@
 package com.urise.webapp.model;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Resume implements Comparable<Resume> {
+public class Resume implements Comparable<Resume>, Serializable {
     private final String uuid;
 
     private final String fullName;
