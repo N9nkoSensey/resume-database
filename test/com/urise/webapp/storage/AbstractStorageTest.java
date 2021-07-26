@@ -2,10 +2,11 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,6 +42,30 @@ public abstract class AbstractStorageTest {
         storage.save(RESUME_1);
         storage.save(RESUME_2);
         storage.save(RESUME_3);
+
+        RESUME_1.addContact(ContactType.MAIL, "mail1@tut.by");
+        RESUME_1.addContact(ContactType.PHONE, "11111");
+        RESUME_1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
+        RESUME_1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
+        RESUME_1.addSection(SectionType.ACHIEVEMENTS, new ListSection("Achivment11", "Achivment12", "Achivment13"));
+        RESUME_1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
+        RESUME_1.addSection(SectionType.EXPERIENCE,
+                new OrganizationSection(
+                        new Organization("Organization11", "http://Organization11.by",
+                                new Organization.Position(2005, Month.JANUARY, "position1", "content1"),
+                                new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content2"))));
+        RESUME_1.addSection(SectionType.EDUCATION,
+                new OrganizationSection(
+                        new Organization("Institute", null,
+                                new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
+                                new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
+                        new Organization("Organization12", "http://Organization12.by")));
+        RESUME_2.addContact(ContactType.SKYPE, "skype2");
+        RESUME_2.addContact(ContactType.PHONE, "22222");
+        RESUME_1.addSection(SectionType.EXPERIENCE,
+                new OrganizationSection(
+                        new Organization("Organization2", "http://Organization2.by",
+                                new Organization.Position(2015, Month.JANUARY, "position1", "content1"))));
     }
 
     @Test
