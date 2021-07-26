@@ -44,7 +44,7 @@ public abstract class AbstractStorageTest {
         storage.save(RESUME_3);
 
         RESUME_1.addContact(ContactType.MAIL, "mail1@tut.by");
-        RESUME_1.addContact(ContactType.PHONE, "11111");
+        RESUME_1.addContact(ContactType.PHONE, "375293753929");
         RESUME_1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
         RESUME_1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
         RESUME_1.addSection(SectionType.ACHIEVEMENTS, new ListSection("Achivment11", "Achivment12", "Achivment13"));
