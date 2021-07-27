@@ -55,7 +55,7 @@ public class Resume implements Comparable<Resume>, Serializable {
 
     @Override
     public String toString() {
-        return uuid + '(' + fullName + ')';
+        return uuid + " (" + fullName + ')';
     }
 
     @Override
@@ -71,14 +71,18 @@ public class Resume implements Comparable<Resume>, Serializable {
 
         Resume resume = (Resume) o;
 
-        if (!uuid.equals(resume.uuid)) return false;
-        return fullName.equals(resume.fullName);
+        if (!Objects.equals(uuid, resume.uuid)) return false;
+        if (!Objects.equals(fullName, resume.fullName)) return false;
+        if (!contacts.equals(resume.contacts)) return false;
+        return sections.equals(resume.sections);
     }
 
     @Override
     public int hashCode() {
-        int result = uuid.hashCode();
-        result = 31 * result + fullName.hashCode();
+        int result = uuid != null ? uuid.hashCode() : 0;
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
+        result = 31 * result + contacts.hashCode();
+        result = 31 * result + sections.hashCode();
         return result;
     }
 }

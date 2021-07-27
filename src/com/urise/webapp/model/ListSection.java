@@ -33,12 +33,12 @@ public class ListSection extends Section {
 
         ListSection that = (ListSection) o;
 
-        return items.equals(that.items);
+        return Objects.equals(items, that.items);
     }
 
     @Override
     public int hashCode() {
-        return items.hashCode();
+        return items != null ? items.hashCode() : 0;
     }
 
     @Override

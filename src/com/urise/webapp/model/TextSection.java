@@ -3,12 +3,14 @@ package com.urise.webapp.model;
 import java.util.Objects;
 
 public class TextSection extends Section {
+
     private static final long serialVersionUID = 1L;
 
     private String content;
 
     public TextSection() {
     }
+
     public TextSection(String content) {
         Objects.requireNonNull(content, "content must not be null");
         this.content = content;
@@ -25,12 +27,12 @@ public class TextSection extends Section {
 
         TextSection that = (TextSection) o;
 
-        return content.equals(that.content);
+        return Objects.equals(content, that.content);
     }
 
     @Override
     public int hashCode() {
-        return content.hashCode();
+        return content != null ? content.hashCode() : 0;
     }
 
     @Override

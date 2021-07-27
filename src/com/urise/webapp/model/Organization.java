@@ -1,9 +1,11 @@
 package com.urise.webapp.model;
 
 import com.urise.webapp.util.DateUtil;
+import com.urise.webapp.util.LocalDateAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
@@ -39,14 +41,18 @@ public class Organization implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Organization that = (Organization) o;
-        return Objects.equals(homePage, that.homePage) &&
-                Objects.equals(positions, that.positions);
+
+        if (!Objects.equals(homePage, that.homePage)) return false;
+        return Objects.equals(positions, that.positions);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(homePage, positions);
+        int result = homePage != null ? homePage.hashCode() : 0;
+        result = 31 * result + (positions != null ? positions.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -54,9 +60,12 @@ public class Organization implements Serializable {
         return "Organization(" + homePage + ", " + positions + ')';
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
 
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate endDate;
 
         private String title;
@@ -103,16 +112,25 @@ public class Organization implements Serializable {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
+
             Position position = (Position) o;
-            return Objects.equals(startDate, position.startDate) &&
-                    Objects.equals(endDate, position.endDate) &&
-                    Objects.equals(title, position.title) &&
-                    Objects.equals(description, position.description);
+
+            if (getStartDate() != null ? !getStartDate().equals(position.getStartDate()) : position.getStartDate() != null)
+                return false;
+            if (getEndDate() != null ? !getEndDate().equals(position.getEndDate()) : position.getEndDate() != null)
+                return false;
+            if (getTitle() != null ? !getTitle().equals(position.getTitle()) : position.getTitle() != null)
+                return false;
+            return getDescription() != null ? getDescription().equals(position.getDescription()) : position.getDescription() == null;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(startDate, endDate, title, description);
+            int result = getStartDate() != null ? getStartDate().hashCode() : 0;
+            result = 31 * result + (getEndDate() != null ? getEndDate().hashCode() : 0);
+            result = 31 * result + (getTitle() != null ? getTitle().hashCode() : 0);
+            result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+            return result;
         }
 
         @Override

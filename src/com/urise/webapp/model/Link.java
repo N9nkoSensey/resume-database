@@ -37,14 +37,14 @@ public class Link implements Serializable {
 
         Link link = (Link) o;
 
-        if (!name.equals(link.name)) return false;
-        return Objects.equals(url, link.url);
+        if (getName() != null ? !getName().equals(link.getName()) : link.getName() != null) return false;
+        return getUrl() != null ? getUrl().equals(link.getUrl()) : link.getUrl() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + (url != null ? url.hashCode() : 0);
+        int result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + (getUrl() != null ? getUrl().hashCode() : 0);
         return result;
     }
 
