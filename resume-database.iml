@@ -42,5 +42,6 @@
     <orderEntry type="library" name="javax.xml.bind:jaxb-api:2.3.1" level="project" />
     <orderEntry type="library" name="javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="org.glassfish.jaxb:jaxb-runtime:2.3.1" level="project" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.8.7" level="project" />
   </component>
 </module>

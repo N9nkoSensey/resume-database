@@ -1,6 +1,6 @@
 package com.urise.webapp.model;
 
-import com.urise.webapp.util.DateUtil;
+
 import com.urise.webapp.util.LocalDateAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -75,7 +75,7 @@ public class Organization implements Serializable {
         }
 
         public Position(int startYear, Month startMonth, String title, String description) {
-            this(DateUtil.of(startYear, startMonth), NOW, title, description);
+            this(of(startYear, startMonth), NOW, title, description);
         }
 
         public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
@@ -112,25 +112,16 @@ public class Organization implements Serializable {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-
             Position position = (Position) o;
-
-            if (getStartDate() != null ? !getStartDate().equals(position.getStartDate()) : position.getStartDate() != null)
-                return false;
-            if (getEndDate() != null ? !getEndDate().equals(position.getEndDate()) : position.getEndDate() != null)
-                return false;
-            if (getTitle() != null ? !getTitle().equals(position.getTitle()) : position.getTitle() != null)
-                return false;
-            return getDescription() != null ? getDescription().equals(position.getDescription()) : position.getDescription() == null;
+            return Objects.equals(startDate, position.startDate) &&
+                    Objects.equals(endDate, position.endDate) &&
+                    Objects.equals(title, position.title) &&
+                    Objects.equals(description, position.description);
         }
 
         @Override
         public int hashCode() {
-            int result = getStartDate() != null ? getStartDate().hashCode() : 0;
-            result = 31 * result + (getEndDate() != null ? getEndDate().hashCode() : 0);
-            result = 31 * result + (getTitle() != null ? getTitle().hashCode() : 0);
-            result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
-            return result;
+            return Objects.hash(startDate, endDate, title, description);
         }
 
         @Override
