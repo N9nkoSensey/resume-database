@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,15 +42,19 @@ public abstract class AbstractStorageTest {
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         storage.clear();
         storage.save(RESUME_1);
         storage.save(RESUME_2);
         storage.save(RESUME_3);
 
-        /*RESUME_1.addContact(ContactType.MAIL, "mail1@tut.by");
+        RESUME_1.addContact(ContactType.MAIL, "mail1@tut.by");
         RESUME_1.addContact(ContactType.PHONE, "375293753929");
-        RESUME_1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
+
+        RESUME_4.addContact(ContactType.PHONE, "42526929");
+        RESUME_4.addContact(ContactType.SKYPE, "Skype");
+
+        /*RESUME_1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
         RESUME_1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
         RESUME_1.addSection(SectionType.ACHIEVEMENTS, new ListSection("Achivment11", "Achivment12", "Achivment13"));
         RESUME_1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
@@ -82,8 +87,15 @@ public abstract class AbstractStorageTest {
     @Test
     public void update() {
         Resume newResume = new Resume(UUID_1, "New Name");
+
+        RESUME_1.addContact(ContactType.MAIL, "mail1@google.com");
+        RESUME_4.addContact(ContactType.SKYPE, "OldSkype");
+        RESUME_4.addContact(ContactType.PHONE, "+375 29 425-26-29");
+
         storage.update(newResume);
-        assertTrue(newResume.equals(storage.get(UUID_1)) );
+        assertTrue(newResume.equals(storage.get(UUID_1)));
+
+
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -133,10 +145,12 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAllSorted(){
+    public void getAllSorted() {
         List<Resume> list = storage.getAllSorted();
         assertEquals(3, list.size());
-        assertEquals(list, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
+        List<Resume> sortedResumes = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
+        Collections.sort(sortedResumes);
+        assertEquals(sortedResumes, list);
     }
 
     private void assertGet(Resume resume) {
