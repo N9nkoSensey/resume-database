@@ -1,2 +1,2 @@
 # resume-database
- Development of a web application "com.urise.webapp.model.Resume Database"
+ Development of a web application "Resume Database"
