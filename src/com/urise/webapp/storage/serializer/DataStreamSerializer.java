@@ -70,10 +70,10 @@ public class DataStreamSerializer implements StreamSerializer {
             String fullName = dataInputStream.readUTF();
             Resume resume = new Resume(uuid, fullName);
             readItems(dataInputStream,
-                    () -> resume.addContact(ContactType.valueOf(dataInputStream.readUTF()), dataInputStream.readUTF()));
+                    () -> resume.setContact(ContactType.valueOf(dataInputStream.readUTF()), dataInputStream.readUTF()));
             readItems(dataInputStream, () -> {
                 SectionType sectionType = SectionType.valueOf(dataInputStream.readUTF());
-                resume.addSection(sectionType, readSection(dataInputStream, sectionType));
+                resume.setSection(sectionType, readSection(dataInputStream, sectionType));
             });
             return resume;
         }
