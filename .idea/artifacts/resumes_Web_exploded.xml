@@ -13,6 +13,7 @@
           <element id="library" level="project" name="javax.activation:activation:1.1" />
           <element id="library" level="project" name="org.glassfish.jaxb:jaxb-runtime:2.3.1" />
           <element id="library" level="project" name="com.google.code.gson:gson:2.8.7" />
+          <element id="library" level="project" name="jstl" />
         </element>
       </element>
     </root>
