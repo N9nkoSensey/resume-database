@@ -43,22 +43,44 @@ public class ResumeServlet extends HttpServlet {
             case "view":
                 resume = storage.get(uuid);
                 break;
+            case "add":
+                resume = Resume.EMPTY;
+                break;
             case "edit":
                 resume = storage.get(uuid);
-                for (SectionType type : new SectionType[]{SectionType.EXPERIENCE, SectionType.EDUCATION}) {
-                    OrganizationSection section = (OrganizationSection) resume.getSection(type);
-                    List<Organization> emptyFirstOrganizations = new ArrayList<>();
-                    emptyFirstOrganizations.add(Organization.EMPTY);
-                    if (section != null) {
-                        for (Organization organization : section.getOrganizations()) {
-                            List<Organization.Position> emptyFirstPositions = new ArrayList<>();
-                            emptyFirstPositions.add(Organization.Position.EMPTY);
-                            emptyFirstPositions.addAll(organization.getPositions());
-                            emptyFirstOrganizations.add(new Organization(organization.getHomePage(),
-                                    emptyFirstPositions));
-                        }
+                for (SectionType type : SectionType.values()) {
+                    Section section = resume.getSection(type);
+                    switch (type) {
+                        case OBJECTIVE:
+                        case PERSONAL:
+                            if (section == null) {
+                                section = TextSection.EMPTY;
+                            }
+                            break;
+                        case ACHIEVEMENTS:
+                        case QUALIFICATIONS:
+                            if (section == null) {
+                                section = ListSection.EMPTY;
+                            }
+                            break;
+                        case EXPERIENCE:
+                        case EDUCATION:
+                            OrganizationSection orgSection = (OrganizationSection) section;
+                            List<Organization> emptyFirstOrganizations = new ArrayList<>();
+                            emptyFirstOrganizations.add(Organization.EMPTY);
+                            if (orgSection != null) {
+                                for (Organization org : orgSection.getOrganizations()) {
+                                    List<Organization.Position> emptyFirstPositions = new ArrayList<>();
+                                    emptyFirstPositions.add(Organization.Position.EMPTY);
+                                    emptyFirstPositions.addAll(org.getPositions());
+                                    emptyFirstOrganizations.add(new Organization(org.getHomePage(),
+                                                                                                emptyFirstPositions));
+                                }
+                            }
+                            section = new OrganizationSection(emptyFirstOrganizations);
+                            break;
                     }
-                    resume.setSection(type, new OrganizationSection(emptyFirstOrganizations));
+                    resume.setSection(type, section);
                 }
                 break;
             default:
@@ -75,8 +97,16 @@ public class ResumeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
-        Resume resume = storage.get(uuid);
-        resume.setFullName(fullName);
+
+        final boolean isCreate = (uuid == null || uuid.length() == 0);
+        Resume resume;
+        if (isCreate) {
+            resume = new Resume(fullName);
+        } else {
+            resume = storage.get(uuid);
+            resume.setFullName(fullName);
+        }
+
         for (ContactType type : ContactType.values()) {
             String value = request.getParameter(type.name());
             if (HtmlUtil.isEmpty(value)) {
@@ -127,7 +157,11 @@ public class ResumeServlet extends HttpServlet {
                 }
             }
         }
-        storage.update(resume);
+        if (isCreate) {
+            storage.save(resume);
+        } else {
+            storage.update(resume);
+        }
         response.sendRedirect("resume");
     }
 }
