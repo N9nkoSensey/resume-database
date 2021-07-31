@@ -8,5 +8,17 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/resumes</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="resumebaseapp" uuid="fa929ee5-7db3-40dc-be67-813a6ac52c6f">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-52-19-96-181.eu-west-1.compute.amazonaws.com:5432/d7gsu0rrp36cir</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <driver-properties>
+        <property name="ssl" value="true" />
+        <property name="sslfactory" value="org.postgresql.ssl.NonValidatingFactory" />
+        <property name="sslmode" value="require" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>
