@@ -31,3 +31,8 @@ hs_err_pid*
 
 #another
 /config/resumes.properties
+
+#####IDEA####
+.idea
+config/resumes.properties
+out
