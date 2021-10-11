@@ -16,6 +16,7 @@ public class MapResumeStorage extends AbstractStorage<Resume> {
         return map.get(uuid);
     }
 
+    //wrong method
     @Override
     protected void doUpdate(Resume resume, Resume Resume) {
         map.put(resume.getUuid(), resume);

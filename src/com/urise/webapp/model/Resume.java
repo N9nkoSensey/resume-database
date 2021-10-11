@@ -80,7 +80,6 @@ public class Resume implements Comparable<Resume>, Serializable {
         return uuid;
     }
 
-
     @Override
     public String toString() {
         return uuid + " (" + fullName + ')';
