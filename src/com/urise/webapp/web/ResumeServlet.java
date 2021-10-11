@@ -74,7 +74,7 @@ public class ResumeServlet extends HttpServlet {
                                     emptyFirstPositions.add(Organization.Position.EMPTY);
                                     emptyFirstPositions.addAll(org.getPositions());
                                     emptyFirstOrganizations.add(new Organization(org.getHomePage(),
-                                                                                                emptyFirstPositions));
+                                            emptyFirstPositions));
                                 }
                             }
                             section = new OrganizationSection(emptyFirstOrganizations);
