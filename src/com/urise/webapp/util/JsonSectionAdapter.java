@@ -22,7 +22,6 @@ public class JsonSectionAdapter<T> implements JsonSerializer<T>, JsonDeserialize
         }
     }
 
-
     @Override
     public JsonElement serialize(T section, Type type, JsonSerializationContext context) {
         JsonObject retValue = new JsonObject();
